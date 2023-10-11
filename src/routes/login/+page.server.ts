@@ -11,7 +11,8 @@ export const actions = {
     const data = await request.formData();
 
     if (data.get('login') === env.AUTH_USER) {
-      cookies.set('auth-user', env.AUTH_USER);
+      const nextYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      cookies.set('auth-user', env.AUTH_USER, { path: '/', expires: nextYear });
 
       throw redirect(302, '/');
     }
