@@ -1,87 +1,75 @@
 <script lang="ts">
+  import { t } from '$lib/shared/i18n';
+  import { Header } from '$lib/shared/ui';
+  import { AddLogModal, EditLogModal, LogCounter, LogList, SubLogModal } from '$lib/entities/log';
+  import type { Log } from '$lib/server/schema/logs';
   import type { PageData } from './$types';
+  import { postAction } from '$lib/shared/lib/post-action';
 
   export let data: PageData;
 
-  let countType = 'REMOVE';
-  let date = new Date().toJSON().slice(0, 10);
+  let isAddVisible = false;
+  let isSubVisible = false;
+  let editLog: Log | null = null;
+
+  const toggleLocale = async () => {
+    const result = await postAction('locale', new FormData());
+
+    console.log({ result });
+  };
 </script>
 
-<p>
-  Boxing: <b>{data.boxingCount}</b>
-</p>
+<Header title={$t('home.trainings')} on:click={toggleLocale} />
 
-<p>
-  Swimming: <b>{data.swimmingCount}</b>
-</p>
+<main>
+  <LogCounter boxingCount={data.boxingCount} swimmingCount={data.swimmingCount} />
 
-<form method="post">
-  <div>
-    <label>
-      <input type="radio" name="type" value="BOXING" checked />
-      Boxing
-    </label>
-
-    <label>
-      <input type="radio" name="type" value="SWIMMING" />
-      Swimming
-    </label>
+  <div class="mt-8">
+    <LogList logs={data.logs} on:edit={({ detail }) => (editLog = detail)} />
   </div>
 
-  <div>
-    <label>
-      <input type="radio" name="countType" value="ADD" bind:group={countType} />
-      Add
-    </label>
-
-    <label>
-      <input type="radio" name="countType" value="REMOVE" bind:group={countType} />
-      Remove
-    </label>
-  </div>
-
-  {#if countType === 'ADD'}
-    <label>
-      <input type="radio" name="count" value="4" checked />
-      4
-    </label>
-    <label>
-      <input type="radio" name="count" value="8" />
-      8
-    </label>
-    <label>
-      <input type="radio" name="count" value="12" />
-      12
-    </label>
-  {:else}
-    <input type="hidden" name="count" value="-1" />
+  {#if data.logs.length >= 10}
+    <a class="mt-2" href="/list">{$t('log.all')}</a>
   {/if}
+</main>
 
-  <div>
-    <label>
-      Date
-      <input type="date" name="date" value={date} />
-    </label>
+<footer>
+  <button class="flex-1 success" on:click={() => (isAddVisible = true)}>{$t('log.add')}</button>
+  <button class="flex-1 error" on:click={() => (isSubVisible = true)}>{$t('log.sub')}</button>
+</footer>
 
-    <div>
-      <button>Save</button>
-    </div>
-  </div>
-</form>
+{#if isAddVisible}
+  <AddLogModal on:close={() => (isAddVisible = false)} />
+{/if}
 
-<ul>
-  {#each data.logs as log}
-    <li class:red={log.count < 0} class:green={log.count > 0}>
-      {log.date.toLocaleDateString()}, {log.type}, {log.count}
-    </li>
-  {/each}
-</ul>
+{#if isSubVisible}
+  <SubLogModal on:close={() => (isSubVisible = false)} />
+{/if}
+
+{#if editLog}
+  <EditLogModal log={editLog} on:close={() => (editLog = null)} />
+{/if}
 
 <style>
-  .red {
-    color: red;
+  main {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
   }
-  .green {
-    color: green;
+
+  a {
+    padding: 1rem 0;
+    font-size: 20px;
+    color: var(--color-secondary-text);
+    text-align: center;
+  }
+
+  footer {
+    display: flex;
+    gap: 1rem;
+    position: sticky;
+    bottom: 0;
+    background-color: var(--color-background);
+    padding: 0.5rem 1rem 2rem 1rem;
   }
 </style>

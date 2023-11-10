@@ -11,6 +11,8 @@ const db = drizzle(client, { schema });
 
 export const getLogs = () => db.select().from(logs).orderBy(desc(logs.date)).all();
 
+export const getTopLogs = (limit = 10) => db.select().from(logs).orderBy(desc(logs.date)).limit(limit).all();
+
 export const getTotal = async (type: string) => {
   const count = await db
     .select({ total: sql<number>`sum(${logs.count})` })
@@ -27,3 +29,8 @@ export const createLog = (type: string, date: Date, count: number) =>
     date,
     count,
   });
+
+export const updateLog = (id: number, type: string, date: Date, count: number) =>
+  db.update(logs).set({ type, date, count }).where(eq(logs.id, id)).execute();
+
+export const removeLog = (id: number) => db.delete(logs).where(eq(logs.id, id)).execute();

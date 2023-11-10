@@ -13,3 +13,5 @@ export const logs = sqliteTable(
     countIdx: index('count_idx').on(logs.type, logs.count),
   }),
 );
+
+export type Log = typeof logs.$inferSelect;
