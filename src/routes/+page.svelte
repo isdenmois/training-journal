@@ -14,7 +14,7 @@
 
   const toggleLocale = async () => {
     const locale = data.locale === 'en' ? 'ru' : 'en';
-    // setLocale(locale)
+    setLocale(locale)
 
     await postAction('locale', new FormData());
   };
