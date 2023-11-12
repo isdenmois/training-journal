@@ -8,6 +8,8 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <h1 on:click>{title}</h1>
+
+    <slot />
   </header>
 </div>
 
@@ -31,7 +33,7 @@
     content: '';
     display: block;
     position: absolute;
-    inset: -2px -10% 0 -10%;
+    inset: -10px -10% 0 -10%;
     border-bottom-left-radius: 50% 20%;
     border-bottom-right-radius: 50% 20%;
     z-index: -1;

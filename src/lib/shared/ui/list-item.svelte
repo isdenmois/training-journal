@@ -18,10 +18,10 @@
 <style>
   li {
     display: flex;
-    gap: 12px;
+    gap: 1rem;
     align-items: center;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
     overflow: hidden;
     padding: 0.5rem 1rem;
     position: relative;

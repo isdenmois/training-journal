@@ -6,5 +6,6 @@
   "save": "Save",
   "add-header": "Add",
   "sub-header": "Spend",
-  "edit-header": "Edit"
+  "edit-header": "Edit",
+  "remove-question": "Are you sure you want to remove this log?"
 }

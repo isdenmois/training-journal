@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { t } from '$lib/shared/i18n';
+  import { setLocale, t } from '$lib/shared/i18n';
   import { Header } from '$lib/shared/ui';
   import { AddLogModal, EditLogModal, LogCounter, LogList, SubLogModal } from '$lib/entities/log';
   import type { Log } from '$lib/server/schema/logs';
@@ -13,18 +13,23 @@
   let editLog: Log | null = null;
 
   const toggleLocale = async () => {
-    const result = await postAction('locale', new FormData());
+    const locale = data.locale === 'en' ? 'ru' : 'en';
+    // setLocale(locale)
 
-    console.log({ result });
+    await postAction('locale', new FormData());
   };
 </script>
 
-<Header title={$t('home.trainings')} on:click={toggleLocale} />
+<Header title={$t('home.trainings')} on:click={toggleLocale}>
+  <div class="header-spacer" />
+</Header>
 
-<main>
+<div class="counter">
   <LogCounter boxingCount={data.boxingCount} swimmingCount={data.swimmingCount} />
+</div>
 
-  <div class="mt-8">
+<main class="mt-16">
+  <div>
     <LogList logs={data.logs} on:edit={({ detail }) => (editLog = detail)} />
   </div>
 
@@ -51,6 +56,18 @@
 {/if}
 
 <style>
+  .header-spacer {
+    height: 52px;
+  }
+
+  .counter {
+    position: fixed;
+    top: 80px;
+    left: 2rem;
+    right: 2rem;
+    z-index: 1;
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -60,6 +77,7 @@
   a {
     padding: 1rem 0;
     font-size: 20px;
+    font-weight: 500;
     color: var(--color-secondary-text);
     text-align: center;
   }

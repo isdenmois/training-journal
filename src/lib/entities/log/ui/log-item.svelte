@@ -12,7 +12,7 @@
 
   <div class="count" slot="right">
     {#if log.count > 0}
-      +{log.count}
+      {log.count}
     {/if}
   </div>
 </ListItem>
@@ -20,7 +20,8 @@
 <style>
   .count {
     color: var(--color-success);
-    font-size: 20px;
+    font-size: 28px;
+    font-weight: bold;
   }
 
   .left {

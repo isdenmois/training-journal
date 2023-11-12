@@ -36,7 +36,7 @@
 
 <style>
   ul {
-    border: 1px solid var(--color-secondary-text);
+    border: var(--border);
     border-radius: 8px;
     display: flex;
     overflow: hidden;
@@ -51,13 +51,14 @@
 
   label {
     flex: 1;
-    padding: 1rem;
+    padding: 0.5rem;
     text-align: center;
-    font-size: 24px;
+    font-size: 32px;
+    font-weight: bold;
   }
 
   li + li {
-    border-left: 1px solid var(--color-secondary-text);
+    border-left: var(--border);
   }
 
   label:has(:checked) {

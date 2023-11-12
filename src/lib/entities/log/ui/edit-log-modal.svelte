@@ -34,7 +34,9 @@
   ];
 
   const removeLog = async () => {
-    if (confirm('Are you sure you want to remove this log?')) {
+    const message = $t('log.remove-question');
+
+    if (confirm(message)) {
       const body = new FormData();
       body.set('id', String(log.id));
 

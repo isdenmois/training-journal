@@ -7,8 +7,9 @@
   --color-error: #e85d7d;
   --color-edit: #fb9701;
   --color-primary-text: #131a50;
-  --color-secondary-text: #7d8ca6; /* #a3a6a8 */
+  --color-secondary-text: #7d8ca6;
   --color-header: #017ffd;
+  --border: 1px solid #dbe2f0;
 }
 
 body {

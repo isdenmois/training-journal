@@ -50,11 +50,10 @@ export const actions = {
   },
 
   locale: async ({ cookies }) => {
-    const currentLocale = cookies.get('lang');
-    const locale = currentLocale === 'ru' ? 'en' : 'ru';
+    const locale = cookies.get('lang') === 'ru' ? 'en' : 'ru';
     const nextYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 
-    cookies.set('lang', locale, { path: '/', expires: nextYear });
+    cookies.set('lang', locale, { path: '/', expires: nextYear, secure: false });
 
     return { locale };
   },

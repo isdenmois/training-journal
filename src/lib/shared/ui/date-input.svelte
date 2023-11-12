@@ -21,7 +21,9 @@
 <div class="input" on:click={openCalendar}>
   <input type="date" {name} bind:this={dateInput} value={dateString} on:change={onChange} />
 
-  <Icon name="calendar" />
+  <div class="icon">
+    <Icon name="calendar" />
+  </div>
 
   <div class="label">
     {value.toLocaleDateString($locale, { dateStyle: 'long' })}
@@ -32,11 +34,11 @@
   .input {
     display: flex;
     align-items: center;
-    border: 1px solid var(--color-secondary-text);
+    border: var(--border);
     border-radius: 8px;
     cursor: pointer;
     gap: 1rem;
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
   }
   .input:hover {
     opacity: 0.75;
@@ -48,7 +50,13 @@
     display: none;
   }
 
+  .icon {
+    color: var(--color-secondary-text);
+  }
+
   .label {
+    color: var(--color-primary-text);
     font-size: 20px;
+    font-weight: bold;
   }
 </style>

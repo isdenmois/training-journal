@@ -24,6 +24,7 @@
 
 <style>
   ul {
+    background-color: var(--color-background);
     list-style: none;
     padding: 1rem;
     display: flex;
@@ -37,11 +38,14 @@
   }
 
   .value {
-    font-size: 32px;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--color-primary-text);
   }
 
   .label {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 400;
     color: var(--color-secondary-text);
   }
 </style>
